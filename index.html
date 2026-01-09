@@ -2,272 +2,244 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porto Amazonas | Premium Fluvial</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Porto Amazonas | Logística por Dias</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --forest-dark: #081c15;
-            --forest-mid: #1b4332;
-            --river-blue: #0077b6;
-            --clay: #b07d62;
-            --soft-bg: #f0f2f0;
-            --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --primary: #1b4332; --accent: #b07d62; --river: #0077b6;
+            --bg: #f8fafc; --surface: #ffffff; --text-main: #0f172a;
+            --text-sub: #64748b; --radius-xl: 32px;
         }
 
-        * { transition: all 0.25s ease; box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--soft-bg); color: #2d3436; height: 100%; }
+        * { transition: all 0.2s ease; box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); height: 100%; }
 
-        /* --- TELA 1: BOAS-VINDAS (LANDING) --- */
+        /* --- LOGIN --- */
         #screen-welcome {
-            height: 100vh;
-            background: linear-gradient(rgba(8,28,21,0.85), rgba(8,28,21,0.7)), 
-                        url('https://images.unsplash.com/photo-1544955368-ba7779d718ca?q=80&w=1200') center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            height: 100vh; background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(27, 67, 50, 0.8)), 
+            url('https://images.unsplash.com/photo-1544955368-ba7779d718ca?q=80&w=1200') center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
+        .login-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); padding: 40px; border-radius: var(--radius-xl); border: 1px solid rgba(255, 255, 255, 0.2); width: 90%; max-width: 380px; text-align: center; }
+        .input-premium { width: 100%; padding: 20px; border-radius: 16px; border: none; background: white; font-size: 1rem; margin-bottom: 16px; font-weight: 600; }
+        .btn-main { width: 100%; padding: 20px; border-radius: 16px; border: none; background: var(--accent); color: white; font-weight: 700; cursor: pointer; }
 
-        .welcome-card {
-            background: rgba(255,255,255,0.12); backdrop-filter: blur(15px);
-            padding: 40px 30px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.2);
-            width: 85%; max-width: 360px;
-        }
-
-        .welcome-card h1 { color: white; font-weight: 800; font-size: 2.2rem; margin: 0 0 10px 0; letter-spacing: -1px; }
-        .welcome-card p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 25px; }
-
-        .input-glass {
-            width: 100%; padding: 18px; border-radius: 14px; border: none;
-            background: white; font-size: 1rem; margin-bottom: 15px; outline: none;
-        }
-
-        .btn-primary {
-            width: 100%; padding: 18px; border-radius: 14px; border: none;
-            background: var(--clay); color: white; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
-
-        /* --- TELA 2: VITRINE (DASHBOARD) --- */
+        /* --- DASHBOARD --- */
         #screen-main { display: none; }
-        .header-main { background: var(--forest-dark); padding: 35px 20px; color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .header-premium { background: var(--primary); padding: 40px 24px 60px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; color: white; }
         
-        .calendar-nav { display: flex; gap: 12px; overflow-x: auto; padding: 20px; scrollbar-width: none; }
+        .calendar-nav { display: flex; gap: 12px; overflow-x: auto; padding: 5px 24px; margin-top: -30px; scrollbar-width: none; }
         .calendar-nav::-webkit-scrollbar { display: none; }
-        .day-pill {
-            min-width: 55px; padding: 12px; background: white; border-radius: 18px;
-            text-align: center; box-shadow: var(--shadow); cursor: pointer; border: 2px solid transparent;
-        }
-        .day-pill.active { border-color: var(--clay); background: var(--clay); color: white; transform: translateY(-3px); }
-        .day-pill span { display: block; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.6; }
+        .day-card { min-width: 65px; height: 85px; background: white; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; border: 2px solid transparent; }
+        .day-card.active { border-color: var(--accent); background: var(--accent); color: white; transform: translateY(-4px); }
+        .day-card span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
 
-        .boat-feed { padding: 0 20px 100px 20px; }
-        .boat-card {
-            background: white; border-radius: 24px; overflow: hidden; margin-bottom: 25px;
-            box-shadow: var(--shadow); position: relative;
-        }
-        .boat-card img { width: 100%; height: 200px; object-fit: cover; }
-        .boat-card-info { padding: 20px; }
-        .boat-card-info h3 { margin: 0; font-weight: 800; font-size: 1.3rem; color: var(--forest-dark); }
-        .boat-card-origin { color: var(--river-blue); font-weight: 600; font-size: 0.9rem; margin: 8px 0; }
-        
-        /* --- TELA 3: FORMULÁRIO PROFISSIONAL --- */
-        #screen-register { display: none; background: #fff; min-height: 100vh; }
-        .form-header { padding: 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 10; }
-        .form-content { padding: 25px; }
-        .section-tag { font-size: 0.65rem; font-weight: 800; color: var(--clay); text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 8px; }
-        .section-tag::after { content: ""; flex: 1; height: 1px; background: #eee; }
+        /* --- FEED --- */
+        .feed { padding: 30px 24px 100px; }
+        .boat-card { background: white; border-radius: 28px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .boat-img-container { width: 100%; height: 220px; }
+        .boat-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .boat-content { padding: 20px; }
+        .boat-content h3 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
+        .boat-meta { display: flex; align-items: center; gap: 10px; margin-top: 10px; color: var(--text-sub); font-size: 0.85rem; }
 
-        .field { position: relative; margin-bottom: 15px; }
-        .field i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #ccc; }
-        .field input { width: 100%; padding: 15px 15px 15px 45px; border: 1.5px solid #eee; border-radius: 14px; font-size: 0.95rem; outline: none; }
-        .field input:focus { border-color: var(--forest-mid); background: #f7fcf9; }
+        /* --- FORMULÁRIO --- */
+        #screen-register { display: none; background: white; min-height: 100vh; }
+        .form-scroller { padding: 24px; }
+        .image-picker { width: 100%; height: 180px; border: 2px dashed #cbd5e1; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: #f1f5f9; cursor: pointer; margin-bottom: 25px; }
+        .image-picker img { width: 100%; height: 100%; object-fit: cover; display: none; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-sub); text-transform: uppercase; margin-bottom: 8px; }
+        .input-field { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid #e2e8f0; background: #f8fafc; font-size: 1rem; font-weight: 600; font-family: inherit; }
 
-        .dropzone { width: 100%; height: 120px; border: 2px dashed #ddd; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; background: #f9f9f9; cursor: pointer; }
-
-        /* --- TELA 4: MODAL DE DETALHES --- */
-        #modal-details { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: none; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
-        /* BOTÕES FLUTUANTES */
-        .fab { position: fixed; bottom: 30px; right: 25px; background: var(--forest-mid); width: 65px; height: 65px; border-radius: 22px; display: flex; justify-content: center; align-items: center; color: white; font-size: 1.5rem; box-shadow: 0 10px 25px rgba(27,67,50,0.3); border: none; }
-
+        .fab { position: fixed; bottom: 30px; right: 24px; width: 65px; height: 65px; background: var(--primary); border-radius: 22px; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: none; box-shadow: 0 10px 20px rgba(27,67,50,0.3); }
+        #modal-details { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: none; overflow-y: auto; }
     </style>
 </head>
 <body>
 
     <section id="screen-welcome">
-        <div class="welcome-card">
-            <h1>Porto<br><span style="color:var(--clay)">Amazonas</span></h1>
-            <p>Seja bem-vindo, passageiro.<br>Identifique-se para começar.</p>
-            <input type="text" id="user-input" class="input-glass" placeholder="Nome Completo">
-            <button class="btn-primary" onclick="initApp()">Entrar no Porto</button>
+        <div class="login-card">
+            <h1>Porto<br><span style="color:var(--accent)">Amazonas</span></h1>
+            <p>Seja bem-vindo ao Porto.</p>
+            <input type="text" id="user-name" class="input-premium" placeholder="Seu nome">
+            <button class="btn-main" onclick="launchApp()">Ver Barcos</button>
         </div>
     </section>
 
     <section id="screen-main">
-        <div class="header-main">
-            <div style="display:flex; justify-content: space-between; align-items: center; opacity: 0.7; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px;">
-                <span>PORTO AMAZONAS</span>
-                <i class="fas fa-bars"></i>
-            </div>
-            <h2 style="margin: 15px 0 0 0; font-weight: 800;">Olá, <span id="display-name"></span></h2>
-            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 12px; margin-top: 20px; display: flex; align-items: center; gap: 10px;">
-                <i class="fas fa-search" style="opacity: 0.5;"></i>
-                <input type="text" placeholder="Buscar barco ou destino..." style="background: none; border: none; color: white; outline: none; width: 100%;">
-            </div>
+        <div class="header-premium">
+            <div style="font-size: 1.8rem; font-weight: 800;">Olá, <span id="display-user"></span>!<br>Para onde vamos?</div>
         </div>
 
-        <div class="calendar-nav">
-            <div class="day-pill active" onclick="filterByDay('Seg', this)"><span>Seg</span><strong>12</strong></div>
-            <div class="day-pill" onclick="filterByDay('Ter', this)"><span>Ter</span><strong>13</strong></div>
-            <div class="day-pill" onclick="filterByDay('Qua', this)"><span>Qua</span><strong>14</strong></div>
-            <div class="day-pill" onclick="filterByDay('Qui', this)"><span>Qui</span><strong>15</strong></div>
-            <div class="day-pill" onclick="filterByDay('Sex', this)"><span>Sex</span><strong>16</strong></div>
-            <div class="day-pill" onclick="filterByDay('Sáb', this)"><span>Sáb</span><strong>17</strong></div>
+        <div class="calendar-nav" id="day-tabs">
+            <div class="day-card active" onclick="changePage('Seg', this)"><span>Seg</span><strong>12</strong></div>
+            <div class="day-card" onclick="changePage('Ter', this)"><span>Ter</span><strong>13</strong></div>
+            <div class="day-card" onclick="changePage('Qua', this)"><span>Qua</span><strong>14</strong></div>
+            <div class="day-card" onclick="changePage('Qui', this)"><span>Qui</span><strong>15</strong></div>
+            <div class="day-card" onclick="changePage('Sex', this)"><span>Sex</span><strong>16</strong></div>
+            <div class="day-card" onclick="changePage('Sáb', this)"><span>Sáb</span><strong>17</strong></div>
+            <div class="day-card" onclick="changePage('Dom', this)"><span>Dom</span><strong>18</strong></div>
         </div>
 
-        <div class="boat-feed" id="main-feed">
-            </div>
-
-        <button class="fab" onclick="changeScreen('screen-register')"><i class="fas fa-plus"></i></button>
+        <div class="feed" id="boat-feed"></div>
+        <button class="fab" onclick="navigate('screen-register')"><i class="fas fa-plus"></i></button>
     </section>
 
     <section id="screen-register">
-        <div class="form-header">
-            <i class="fas fa-arrow-left" onclick="changeScreen('screen-main')"></i>
-            <h3 style="margin:0; font-weight: 800; font-size: 1rem;">Publicar Saída</h3>
+        <div style="padding: 24px; display: flex; align-items: center; gap: 15px;">
+            <i class="fas fa-arrow-left" onclick="navigate('screen-main')"></i>
+            <h3 style="margin:0; font-weight: 800;">Anunciar Saída</h3>
         </div>
-        <div class="form-content">
-            <div class="dropzone" onclick="document.getElementById('file-in').click()">
-                <i class="fas fa-camera fa-2x"></i>
-                <span style="font-size: 0.7rem; font-weight: 700; margin-top: 8px;">FOTO DA EMBARCAÇÃO</span>
-                <input type="file" id="file-in" style="display:none">
+        
+        <div class="form-scroller">
+            <div class="image-picker" onclick="document.getElementById('file-input').click()">
+                <div id="upload-placeholder"><i class="fas fa-camera fa-2x"></i></div>
+                <img id="preview-img">
+                <input type="file" id="file-input" accept="image/*" style="display:none" onchange="previewImage(this)">
             </div>
 
-            <div class="section-tag">Dados da Viagem</div>
-            <div class="field"><i class="fas fa-ship"></i><input type="text" id="f-name" placeholder="Nome do Barco"></div>
-            <div class="field"><i class="fas fa-anchor"></i><input type="text" id="f-origin" placeholder="Cidade de Saída"></div>
-            
-            <div style="display:flex; gap:10px;">
-                <div class="field" style="flex:1;"><i class="fas fa-calendar"></i><input type="date" id="f-date"></div>
-                <div class="field" style="flex:1;"><i class="fas fa-clock"></i><input type="time" id="f-time"></div>
+            <div class="input-group"><label>Nome do Barco</label><input type="text" id="in-name" class="input-field"></div>
+            <div class="input-group"><label>Cidade de Saída</label><input type="text" id="in-origin" class="input-field"></div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+                <div class="input-group"><label>Data</label><input type="date" id="in-date" class="input-field"></div>
+                <div class="input-group"><label>Horário</label><input type="time" id="in-time" class="input-field"></div>
             </div>
-
-            <div class="section-tag">Valores e Contato</div>
-            <div class="field"><i class="fas fa-tag"></i><input type="number" id="f-price" placeholder="Preço Passagem (R$)"></div>
-            <div class="field"><i class="fas fa-user-tie"></i><input type="text" id="f-owner" placeholder="Nome do Proprietário"></div>
-            <div class="field"><i class="fab fa-whatsapp"></i><input type="tel" id="f-phone" placeholder="WhatsApp (DDD + Número)"></div>
-
-            <button class="btn-primary" style="background: var(--forest-dark); margin-top: 20px;" onclick="addBoat()">Publicar Agora</button>
+            <div class="input-group"><label>Passagem (R$)</label><input type="number" id="in-price" class="input-field"></div>
+            <div class="input-group"><label>WhatsApp</label><input type="tel" id="in-phone" class="input-field"></div>
+            <button class="btn-main" onclick="publish()" style="background: var(--primary);">Publicar</button>
         </div>
     </section>
 
     <div id="modal-details">
-        <i class="fas fa-times" onclick="closeModal()" style="position:absolute; top:20px; right:20px; z-index:10; background:white; padding:10px; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.1);"></i>
-        <img id="det-img" style="width:100%; height:300px; object-fit:cover; border-bottom-left-radius:35px; border-bottom-right-radius:35px;">
-        <div style="padding:25px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h2 id="det-name" style="margin:0; font-weight:800; font-size:1.8rem;"></h2>
-                <span id="det-price" style="background:var(--clay); color:white; padding:8px 12px; border-radius:10px; font-weight:800;"></span>
+        <div style="position:relative">
+            <img id="m-img" style="width:100%; height:350px; object-fit:cover;">
+            <button onclick="closeModal()" style="position:absolute; top:20px; left:20px; border:none; background:white; width:45px; height:45px; border-radius:15px;"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        <div style="padding: 30px; margin-top: -30px; background:white; border-radius: 30px 30px 0 0; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <h2 id="m-name" style="margin:0; font-weight:800; font-size:1.8rem;"></h2>
+                <div id="m-price" style="background:var(--accent); color:white; padding:10px 15px; border-radius:12px; font-weight:800;"></div>
             </div>
-            <p id="det-origin" style="color:var(--river-blue); font-weight:600; margin-top:8px;"></p>
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:25px;">
-                <div style="background:#f8f9fa; padding:15px; border-radius:15px;">
-                    <small style="font-size:0.6rem; font-weight:800; opacity:0.5;">DATA</small>
-                    <div id="det-date" style="font-weight:700;"></div>
-                </div>
-                <div style="background:#f8f9fa; padding:15px; border-radius:15px;">
-                    <small style="font-size:0.6rem; font-weight:800; opacity:0.5;">HORÁRIO</small>
-                    <div id="det-time" style="font-weight:700;"></div>
-                </div>
-            </div>
-
-            <p style="margin-top:25px; margin-bottom:5px; font-size:0.8rem; font-weight:700; opacity:0.5;">PROPRIETÁRIO</p>
-            <p id="det-owner" style="font-weight:700; margin:0;"></p>
-
-            <button id="det-zap" style="width:100%; padding:20px; background:#25d366; color:white; border:none; border-radius:18px; margin-top:30px; font-weight:800; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
-                <i class="fab fa-whatsapp fa-lg"></i> RESERVAR PASSAGEM
-            </button>
+            <p id="m-origin" style="color:var(--river); font-weight:700; margin-top:10px;"></p>
+            <div id="m-info" style="margin-top:20px; font-weight:600; color:var(--text-sub);"></div>
+            <button id="m-btn-zap" style="width:100%; padding:20px; background:#25d366; color:white; border:none; border-radius:15px; margin-top:30px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:10px;"><i class="fab fa-whatsapp"></i> RESERVAR AGORA</button>
         </div>
     </div>
 
     <script>
-        let currentUser = "";
-        let boats = [];
+        // BANCO DE DADOS POR DIA
+        let database = { "Seg": [], "Ter": [], "Qua": [], "Qui": [], "Sex": [], "Sáb": [], "Dom": [] };
+        let currentPage = "Seg";
+        let currentImg = "";
 
-        function initApp() {
-            currentUser = document.getElementById('user-input').value;
-            if(!currentUser) return alert("Por favor, digite seu nome.");
-            document.getElementById('display-name').innerText = currentUser.split(' ')[0].toUpperCase();
-            changeScreen('screen-main');
-            renderFeed();
+        function launchApp() {
+            let name = document.getElementById('user-name').value;
+            if(!name) return alert("Diga-nos seu nome!");
+            document.getElementById('display-user').innerText = name.split(' ')[0];
+            navigate('screen-main');
+            updateFeed();
         }
 
-        function changeScreen(id) {
-            ['screen-welcome', 'screen-main', 'screen-register'].forEach(s => document.getElementById(s).style.display = 'none');
+        function navigate(id) {
+            document.querySelectorAll('section').forEach(s => s.style.display = 'none');
             document.getElementById(id).style.display = 'block';
-            window.scrollTo(0,0);
         }
 
-        function filterByDay(day, el) {
-            document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
+        function changePage(day, el) {
+            currentPage = day;
+            document.querySelectorAll('.day-card').forEach(d => d.classList.remove('active'));
             el.classList.add('active');
-            renderFeed();
+            updateFeed();
         }
 
-        function addBoat() {
-            const b = {
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('upload-placeholder').style.display = 'none';
+                    let img = document.getElementById('preview-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    currentImg = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function publish() {
+            const dateVal = document.getElementById('in-date').value;
+            if(!dateVal) return alert("Escolha uma data!");
+
+            // Lógica para detectar o dia da semana da data escolhida
+            const daysMap = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+            const dt = new Date(dateVal + 'T00:00:00');
+            const dayName = daysMap[dt.getDay()];
+
+            const boat = {
                 id: Date.now(),
-                name: document.getElementById('f-name').value,
-                origin: document.getElementById('f-origin').value,
-                date: document.getElementById('f-date').value,
-                time: document.getElementById('f-time').value,
-                price: document.getElementById('f-price').value,
-                owner: document.getElementById('f-owner').value,
-                phone: document.getElementById('f-phone').value,
-                user: currentUser,
-                img: 'https://images.unsplash.com/photo-1590604518089-28c467ed828d?q=80&w=800'
+                name: document.getElementById('in-name').value,
+                origin: document.getElementById('in-origin').value,
+                date: dateVal,
+                time: document.getElementById('in-time').value,
+                price: document.getElementById('in-price').value,
+                phone: document.getElementById('in-phone').value,
+                img: currentImg || 'https://images.unsplash.com/photo-1590604518089-28c467ed828d?q=80&w=800'
             };
-            if(!b.name || !b.origin) return alert("Preencha os campos obrigatórios.");
-            boats.unshift(b);
-            changeScreen('screen-main');
-            renderFeed();
+
+            // Salva na "página" correta
+            database[dayName].unshift(boat);
+            
+            // Limpa form
+            document.getElementById('upload-placeholder').style.display = 'block';
+            document.getElementById('preview-img').style.display = 'none';
+            currentImg = "";
+            
+            // Vai para o dia que o usuário acabou de cadastrar
+            currentPage = dayName;
+            syncCalendarUI(dayName);
+            updateFeed();
+            navigate('screen-main');
         }
 
-        function renderFeed() {
-            const feed = document.getElementById('main-feed');
-            feed.innerHTML = boats.length ? "" : `<div style="text-align:center; padding:60px; opacity:0.3; font-weight:700;">NENHUMA SAÍDA ENCONTRADA</div>`;
+        function syncCalendarUI(day) {
+            const cards = document.querySelectorAll('.day-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+                if(card.querySelector('span').innerText === day) card.classList.add('active');
+            });
+        }
+
+        function updateFeed() {
+            const feed = document.getElementById('boat-feed');
+            const list = database[currentPage];
             
-            boats.forEach(b => {
+            feed.innerHTML = list.length ? "" : `<div style="text-align:center; padding:50px; opacity:0.5;">Nenhum barco para ${currentPage}-feira.</div>`;
+            
+            list.forEach(b => {
                 feed.innerHTML += `
-                    <div class="boat-card" onclick="openDetails(${b.id})">
-                        <img src="${b.img}">
-                        <div class="boat-card-info">
-                            <h3>${b.name.toUpperCase()}</h3>
-                            <div class="boat-card-origin"><i class="fas fa-anchor"></i> ${b.origin}</div>
-                            <div style="font-size:0.75rem; color:#888; font-weight:600;">Partida: ${b.date.split('-').reverse().join('/')} às ${b.time}h</div>
+                    <div class="boat-card" onclick="showBoat(${b.id})">
+                        <div class="boat-img-container"><img src="${b.img}"></div>
+                        <div class="boat-content">
+                            <h3>${b.name}</h3>
+                            <div class="boat-meta"><i class="fas fa-anchor"></i> ${b.origin}</div>
+                            <div class="boat-meta"><i class="fas fa-clock"></i> Saída às ${b.time}h</div>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function openDetails(id) {
-            const b = boats.find(x => x.id === id);
-            document.getElementById('det-name').innerText = b.name;
-            document.getElementById('det-img').src = b.img;
-            document.getElementById('det-origin').innerText = "📍 Saindo de: " + b.origin;
-            document.getElementById('det-date').innerText = b.date.split('-').reverse().join('/');
-            document.getElementById('det-time').innerText = b.time + "h";
-            document.getElementById('det-price').innerText = "R$ " + b.price;
-            document.getElementById('det-owner').innerText = b.owner;
-            
-            document.getElementById('det-zap').onclick = () => {
-                window.open(`https://wa.me/55${b.phone}?text=Olá%20${b.owner},%20tenho%20interesse%20na%20passagem%20do%20barco%20${b.name}.`);
-            };
-            
+        function showBoat(id) {
+            const b = database[currentPage].find(x => x.id === id);
+            document.getElementById('m-name').innerText = b.name;
+            document.getElementById('m-img').src = b.img;
+            document.getElementById('m-origin').innerText = "⚓ Porto: " + b.origin;
+            document.getElementById('m-price').innerText = "R$ " + b.price;
+            document.getElementById('m-info').innerText = `Saída confirmada para ${b.date.split('-').reverse().join('/')} às ${b.time}h`;
+            document.getElementById('m-btn-zap').onclick = () => window.open(`https://wa.me/55${b.phone}`);
             document.getElementById('modal-details').style.display = 'block';
         }
 
