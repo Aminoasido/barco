@@ -3,291 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porto Amazonas | Premium</title>
+    <title>Porto Amazonas | Premium Fluvial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --forest-dark: #081c15;
             --forest-mid: #1b4332;
             --river-blue: #0077b6;
-            --clay-accent: #b07d62;
-            --soft-white: #f8f9fa;
-            --card-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            --clay: #b07d62;
+            --soft-bg: #f0f2f0;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        * { transition: all 0.2s ease-in-out; }
-        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: #f0f2f0; color: #2d3436; }
+        * { transition: all 0.25s ease; box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--soft-bg); color: #2d3436; height: 100%; }
 
-        /* --- LANDING PAGE PROFISSIONAL --- */
+        /* --- TELA 1: BOAS-VINDAS (LANDING) --- */
         #screen-welcome {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(8,28,21,0.9), rgba(27,67,50,0.7)), 
+            background: linear-gradient(rgba(8,28,21,0.85), rgba(8,28,21,0.7)), 
                         url('https://images.unsplash.com/photo-1544955368-ba7779d718ca?q=80&w=1200') center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
 
-        .welcome-content { text-align: center; color: white; width: 80%; }
-        .welcome-content h1 { font-weight: 800; letter-spacing: -1px; font-size: 2.5rem; margin-bottom: 10px; }
-        
-        .login-box {
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px);
-            padding: 40px 30px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.2);
-            width: 100%; max-width: 340px; margin-top: 20px;
+        .welcome-card {
+            background: rgba(255,255,255,0.12); backdrop-filter: blur(15px);
+            padding: 40px 30px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.2);
+            width: 85%; max-width: 360px;
         }
 
-        .login-box input {
-            background: rgba(255,255,255,0.9); border: none; padding: 18px;
-            border-radius: 12px; width: 100%; box-sizing: border-box; font-size: 1rem; margin-bottom: 20px;
+        .welcome-card h1 { color: white; font-weight: 800; font-size: 2.2rem; margin: 0 0 10px 0; letter-spacing: -1px; }
+        .welcome-card p { color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 25px; }
+
+        .input-glass {
+            width: 100%; padding: 18px; border-radius: 14px; border: none;
+            background: white; font-size: 1rem; margin-bottom: 15px; outline: none;
         }
 
-        /* --- DASHBOARD PRINCIPAL --- */
+        .btn-primary {
+            width: 100%; padding: 18px; border-radius: 14px; border: none;
+            background: var(--clay); color: white; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        /* --- TELA 2: VITRINE (DASHBOARD) --- */
         #screen-main { display: none; }
+        .header-main { background: var(--forest-dark); padding: 35px 20px; color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
         
-        .main-header {
-            background: var(--forest-dark); padding: 30px 20px; color: white;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
-        }
-
-        .search-bar {
-            background: rgba(255,255,255,0.15); border-radius: 12px; padding: 12px 15px;
-            display: flex; align-items: center; margin-top: 20px;
-        }
-        .search-bar input { background: none; border: none; color: white; margin-left: 10px; width: 100%; outline: none; }
-        .search-bar input::placeholder { color: rgba(255,255,255,0.5); }
-
-        .calendar-nav {
-            display: flex; gap: 12px; overflow-x: auto; padding: 20px;
-            scrollbar-width: none;
-        }
+        .calendar-nav { display: flex; gap: 12px; overflow-x: auto; padding: 20px; scrollbar-width: none; }
+        .calendar-nav::-webkit-scrollbar { display: none; }
         .day-pill {
-            min-width: 50px; padding: 15px 10px; background: white; border-radius: 16px;
-            text-align: center; box-shadow: var(--card-shadow); cursor: pointer;
+            min-width: 55px; padding: 12px; background: white; border-radius: 18px;
+            text-align: center; box-shadow: var(--shadow); cursor: pointer; border: 2px solid transparent;
         }
-        .day-pill.active { background: var(--clay-accent); color: white; transform: translateY(-5px); }
-        .day-pill span { display: block; font-size: 0.6rem; text-transform: uppercase; font-weight: 800; opacity: 0.6; }
+        .day-pill.active { border-color: var(--clay); background: var(--clay); color: white; transform: translateY(-3px); }
+        .day-pill span { display: block; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; opacity: 0.6; }
 
-        /* --- CARDS DE EMBARCAÇÃO --- */
-        .feed { padding: 0 20px 100px 20px; }
+        .boat-feed { padding: 0 20px 100px 20px; }
         .boat-card {
-            background: white; border-radius: 24px; overflow: hidden;
-            margin-bottom: 25px; box-shadow: var(--card-shadow);
-            position: relative;
+            background: white; border-radius: 24px; overflow: hidden; margin-bottom: 25px;
+            box-shadow: var(--shadow); position: relative;
         }
-        .boat-card img { width: 100%; height: 220px; object-fit: cover; }
+        .boat-card img { width: 100%; height: 200px; object-fit: cover; }
+        .boat-card-info { padding: 20px; }
+        .boat-card-info h3 { margin: 0; font-weight: 800; font-size: 1.3rem; color: var(--forest-dark); }
+        .boat-card-origin { color: var(--river-blue); font-weight: 600; font-size: 0.9rem; margin: 8px 0; }
         
-        .boat-badge {
-            position: absolute; top: 15px; left: 15px; background: rgba(0,0,0,0.6);
-            color: white; padding: 6px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 600;
-            backdrop-filter: blur(5px);
-        }
+        /* --- TELA 3: FORMULÁRIO PROFISSIONAL --- */
+        #screen-register { display: none; background: #fff; min-height: 100vh; }
+        .form-header { padding: 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 10; }
+        .form-content { padding: 25px; }
+        .section-tag { font-size: 0.65rem; font-weight: 800; color: var(--clay); text-transform: uppercase; letter-spacing: 1.5px; margin: 25px 0 15px 0; display: flex; align-items: center; gap: 8px; }
+        .section-tag::after { content: ""; flex: 1; height: 1px; background: #eee; }
 
-        .boat-info-summary { padding: 20px; }
-        .boat-info-summary h3 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--forest-dark); }
-        .location-label { color: var(--river-blue); font-weight: 600; font-size: 0.9rem; margin: 8px 0; display: flex; align-items: center; gap: 5px; }
+        .field { position: relative; margin-bottom: 15px; }
+        .field i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #ccc; }
+        .field input { width: 100%; padding: 15px 15px 15px 45px; border: 1.5px solid #eee; border-radius: 14px; font-size: 0.95rem; outline: none; }
+        .field input:focus { border-color: var(--forest-mid); background: #f7fcf9; }
 
-        .btn-details {
-            width: 100%; background: #f0f2f0; border: none; padding: 12px;
-            border-radius: 12px; font-weight: 700; color: var(--forest-mid); margin-top: 10px;
-        }
+        .dropzone { width: 100%; height: 120px; border: 2px dashed #ddd; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; background: #f9f9f9; cursor: pointer; }
 
-        /* --- BOTÕES E MODAIS --- */
-        .fab-add {
-            position: fixed; bottom: 30px; right: 20px; background: var(--forest-mid);
-            width: 65px; height: 65px; border-radius: 20px; display: flex;
-            justify-content: center; align-items: center; color: white; font-size: 1.5rem;
-            box-shadow: 0 15px 30px rgba(27,67,50,0.4); border: none; z-index: 100;
-        }
-
-        #modal-view {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 1000; display: none; overflow-y: auto;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
+        /* --- TELA 4: MODAL DE DETALHES --- */
+        #modal-details { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: none; animation: slideUp 0.3s ease; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-        .btn-back { position: absolute; top: 20px; left: 20px; background: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); border: none; z-index: 10; }
+        /* BOTÕES FLUTUANTES */
+        .fab { position: fixed; bottom: 30px; right: 25px; background: var(--forest-mid); width: 65px; height: 65px; border-radius: 22px; display: flex; justify-content: center; align-items: center; color: white; font-size: 1.5rem; box-shadow: 0 10px 25px rgba(27,67,50,0.3); border: none; }
 
     </style>
 </head>
 <body>
 
     <section id="screen-welcome">
-        <div class="welcome-content">
-            <h1>Porto<br><span style="color:var(--clay-accent)">Amazonas</span></h1>
-            <p style="opacity: 0.8;">O guia definitivo do passageiro fluvial.</p>
-            <div class="login-box">
-                <input type="text" id="username" placeholder="Seu nome completo">
-                <button class="btn-enter" onclick="startApp()" style="background:var(--forest-mid); color:white; border:none; width:100%; padding:18px; border-radius:12px; font-weight:800; text-transform:uppercase;">Começar Viagem</button>
-            </div>
+        <div class="welcome-card">
+            <h1>Porto<br><span style="color:var(--clay)">Amazonas</span></h1>
+            <p>Seja bem-vindo, passageiro.<br>Identifique-se para começar.</p>
+            <input type="text" id="user-input" class="input-glass" placeholder="Nome Completo">
+            <button class="btn-primary" onclick="initApp()">Entrar no Porto</button>
         </div>
     </section>
 
     <section id="screen-main">
-        <div class="main-header">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; letter-spacing: 2px;">BEM-VINDO, <strong id="user-display"></strong></span>
-                <i class="fas fa-bell"></i>
+        <div class="header-main">
+            <div style="display:flex; justify-content: space-between; align-items: center; opacity: 0.7; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px;">
+                <span>PORTO AMAZONAS</span>
+                <i class="fas fa-bars"></i>
             </div>
-            <div class="search-bar">
+            <h2 style="margin: 15px 0 0 0; font-weight: 800;">Olá, <span id="display-name"></span></h2>
+            <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 12px; margin-top: 20px; display: flex; align-items: center; gap: 10px;">
                 <i class="fas fa-search" style="opacity: 0.5;"></i>
-                <input type="text" placeholder="Buscar barco ou destino...">
+                <input type="text" placeholder="Buscar barco ou destino..." style="background: none; border: none; color: white; outline: none; width: 100%;">
             </div>
         </div>
 
         <div class="calendar-nav">
-            <div class="day-pill active" onclick="setDay('Seg', this)"><span>Seg</span><strong>12</strong></div>
-            <div class="day-pill" onclick="setDay('Ter', this)"><span>Ter</span><strong>13</strong></div>
-            <div class="day-pill" onclick="setDay('Qua', this)"><span>Qua</span><strong>14</strong></div>
-            <div class="day-pill" onclick="setDay('Qui', this)"><span>Qui</span><strong>15</strong></div>
-            <div class="day-pill" onclick="setDay('Sex', this)"><span>Sex</span><strong>16</strong></div>
-            <div class="day-pill" onclick="setDay('Sáb', this)"><span>Sáb</span><strong>17</strong></div>
+            <div class="day-pill active" onclick="filterByDay('Seg', this)"><span>Seg</span><strong>12</strong></div>
+            <div class="day-pill" onclick="filterByDay('Ter', this)"><span>Ter</span><strong>13</strong></div>
+            <div class="day-pill" onclick="filterByDay('Qua', this)"><span>Qua</span><strong>14</strong></div>
+            <div class="day-pill" onclick="filterByDay('Qui', this)"><span>Qui</span><strong>15</strong></div>
+            <div class="day-pill" onclick="filterByDay('Sex', this)"><span>Sex</span><strong>16</strong></div>
+            <div class="day-pill" onclick="filterByDay('Sáb', this)"><span>Sáb</span><strong>17</strong></div>
         </div>
 
-        <div class="feed" id="boat-feed">
+        <div class="boat-feed" id="main-feed">
             </div>
 
-        <button class="fab-add" onclick="openRegister()"><i class="fas fa-plus"></i></button>
+        <button class="fab" onclick="changeScreen('screen-register')"><i class="fas fa-plus"></i></button>
     </section>
 
-    <div id="modal-view">
-        <button class="btn-back" onclick="closeModal()"><i class="fas fa-chevron-left"></i></button>
-        <img id="m-img" src="" style="width: 100%; height: 350px; object-fit: cover; border-bottom-left-radius: 40px;">
-        
-        <div style="padding: 30px;">
-            <div style="display:flex; justify-content: space-between; align-items: center;">
-                <h2 id="m-name" style="margin:0; font-size: 2rem; font-weight: 800;"></h2>
-                <span id="m-price" style="background: var(--clay-accent); color:white; padding: 10px 15px; border-radius: 12px; font-weight: 800;"></span>
+    <section id="screen-register">
+        <div class="form-header">
+            <i class="fas fa-arrow-left" onclick="changeScreen('screen-main')"></i>
+            <h3 style="margin:0; font-weight: 800; font-size: 1rem;">Publicar Saída</h3>
+        </div>
+        <div class="form-content">
+            <div class="dropzone" onclick="document.getElementById('file-in').click()">
+                <i class="fas fa-camera fa-2x"></i>
+                <span style="font-size: 0.7rem; font-weight: 700; margin-top: 8px;">FOTO DA EMBARCAÇÃO</span>
+                <input type="file" id="file-in" style="display:none">
             </div>
-            <p id="m-origin" style="color: var(--river-blue); font-weight: 600; margin-top: 10px;"></p>
+
+            <div class="section-tag">Dados da Viagem</div>
+            <div class="field"><i class="fas fa-ship"></i><input type="text" id="f-name" placeholder="Nome do Barco"></div>
+            <div class="field"><i class="fas fa-anchor"></i><input type="text" id="f-origin" placeholder="Cidade de Saída"></div>
             
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px;">
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 20px;">
-                    <small style="text-transform: uppercase; font-size: 0.6rem; font-weight: 800; color: #aaa;">Data de Saída</small>
-                    <div id="m-date" style="font-weight: 700; margin-top: 5px;"></div>
+            <div style="display:flex; gap:10px;">
+                <div class="field" style="flex:1;"><i class="fas fa-calendar"></i><input type="date" id="f-date"></div>
+                <div class="field" style="flex:1;"><i class="fas fa-clock"></i><input type="time" id="f-time"></div>
+            </div>
+
+            <div class="section-tag">Valores e Contato</div>
+            <div class="field"><i class="fas fa-tag"></i><input type="number" id="f-price" placeholder="Preço Passagem (R$)"></div>
+            <div class="field"><i class="fas fa-user-tie"></i><input type="text" id="f-owner" placeholder="Nome do Proprietário"></div>
+            <div class="field"><i class="fab fa-whatsapp"></i><input type="tel" id="f-phone" placeholder="WhatsApp (DDD + Número)"></div>
+
+            <button class="btn-primary" style="background: var(--forest-dark); margin-top: 20px;" onclick="addBoat()">Publicar Agora</button>
+        </div>
+    </section>
+
+    <div id="modal-details">
+        <i class="fas fa-times" onclick="closeModal()" style="position:absolute; top:20px; right:20px; z-index:10; background:white; padding:10px; border-radius:50%; box-shadow:0 5px 15px rgba(0,0,0,0.1);"></i>
+        <img id="det-img" style="width:100%; height:300px; object-fit:cover; border-bottom-left-radius:35px; border-bottom-right-radius:35px;">
+        <div style="padding:25px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 id="det-name" style="margin:0; font-weight:800; font-size:1.8rem;"></h2>
+                <span id="det-price" style="background:var(--clay); color:white; padding:8px 12px; border-radius:10px; font-weight:800;"></span>
+            </div>
+            <p id="det-origin" style="color:var(--river-blue); font-weight:600; margin-top:8px;"></p>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:25px;">
+                <div style="background:#f8f9fa; padding:15px; border-radius:15px;">
+                    <small style="font-size:0.6rem; font-weight:800; opacity:0.5;">DATA</small>
+                    <div id="det-date" style="font-weight:700;"></div>
                 </div>
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 20px;">
-                    <small style="text-transform: uppercase; font-size: 0.6rem; font-weight: 800; color: #aaa;">Horário</small>
-                    <div id="m-time" style="font-weight: 700; margin-top: 5px;"></div>
+                <div style="background:#f8f9fa; padding:15px; border-radius:15px;">
+                    <small style="font-size:0.6rem; font-weight:800; opacity:0.5;">HORÁRIO</small>
+                    <div id="det-time" style="font-weight:700;"></div>
                 </div>
             </div>
 
-            <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-                <div style="display:flex; align-items: center; gap: 15px;">
-                    <div style="width: 50px; height: 50px; background: var(--forest-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div>
-                        <small style="color: #888;">Proprietário</small>
-                        <div id="m-owner" style="font-weight: 700;"></div>
-                    </div>
-                </div>
-            </div>
+            <p style="margin-top:25px; margin-bottom:5px; font-size:0.8rem; font-weight:700; opacity:0.5;">PROPRIETÁRIO</p>
+            <p id="det-owner" style="font-weight:700; margin:0;"></p>
 
-            <button id="btn-zap" style="width:100%; background: #25d366; color: white; border: none; padding: 20px; border-radius: 16px; font-weight: 800; margin-top: 30px; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                <i class="fab fa-whatsapp fa-lg"></i> FALAR COM RESPONSÁVEL
+            <button id="det-zap" style="width:100%; padding:20px; background:#25d366; color:white; border:none; border-radius:18px; margin-top:30px; font-weight:800; font-size:1rem; display:flex; align-items:center; justify-content:center; gap:10px;">
+                <i class="fab fa-whatsapp fa-lg"></i> RESERVAR PASSAGEM
             </button>
         </div>
     </div>
 
-    <section id="screen-register" style="display:none; padding: 30px; background: white; min-height: 100vh;">
-        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2 style="margin:0; font-weight: 800;">Novo Barco</h2>
-            <i class="fas fa-times fa-lg" onclick="startApp()"></i>
-        </div>
-        
-        <label style="font-size: 0.7rem; font-weight: 800; color: #aaa; text-transform: uppercase;">Informações Básicas</label>
-        <input type="text" id="r-name" placeholder="Nome da Embarcação">
-        <input type="text" id="r-origin" placeholder="Cidade de Saída">
-        <input type="date" id="r-date">
-        <input type="time" id="r-time">
-        <input type="number" id="r-price" placeholder="Preço da Passagem (R$)">
-        <input type="tel" id="r-phone" placeholder="WhatsApp do Responsável">
-        <input type="text" id="r-owner" placeholder="Nome do Proprietário">
-        
-        <button class="btn-enter" onclick="saveBoat()" style="background: var(--forest-dark); margin-top: 20px;">Publicar agora</button>
-    </section>
-
     <script>
-        let user = "";
-        let data = [];
+        let currentUser = "";
+        let boats = [];
 
-        function startApp() {
-            user = document.getElementById('username').value || "Passageiro";
-            document.getElementById('user-display').innerText = user.split(' ')[0].toUpperCase();
-            document.getElementById('screen-welcome').style.display = 'none';
-            document.getElementById('screen-register').style.display = 'none';
-            document.getElementById('screen-main').style.display = 'block';
-            render();
+        function initApp() {
+            currentUser = document.getElementById('user-input').value;
+            if(!currentUser) return alert("Por favor, digite seu nome.");
+            document.getElementById('display-name').innerText = currentUser.split(' ')[0].toUpperCase();
+            changeScreen('screen-main');
+            renderFeed();
         }
 
-        function setDay(day, el) {
+        function changeScreen(id) {
+            ['screen-welcome', 'screen-main', 'screen-register'].forEach(s => document.getElementById(s).style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+            window.scrollTo(0,0);
+        }
+
+        function filterByDay(day, el) {
             document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
             el.classList.add('active');
-            render();
+            renderFeed();
         }
 
-        function openRegister() {
-            document.getElementById('screen-main').style.display = 'none';
-            document.getElementById('screen-register').style.display = 'block';
-        }
-
-        function saveBoat() {
-            const boat = {
+        function addBoat() {
+            const b = {
                 id: Date.now(),
-                name: document.getElementById('r-name').value,
-                origin: document.getElementById('r-origin').value,
-                date: document.getElementById('r-date').value,
-                time: document.getElementById('r-time').value,
-                price: document.getElementById('r-price').value,
-                phone: document.getElementById('r-phone').value,
-                owner: document.getElementById('r-owner').value,
+                name: document.getElementById('f-name').value,
+                origin: document.getElementById('f-origin').value,
+                date: document.getElementById('f-date').value,
+                time: document.getElementById('f-time').value,
+                price: document.getElementById('f-price').value,
+                owner: document.getElementById('f-owner').value,
+                phone: document.getElementById('f-phone').value,
+                user: currentUser,
                 img: 'https://images.unsplash.com/photo-1590604518089-28c467ed828d?q=80&w=800'
             };
-            data.unshift(boat);
-            startApp();
+            if(!b.name || !b.origin) return alert("Preencha os campos obrigatórios.");
+            boats.unshift(b);
+            changeScreen('screen-main');
+            renderFeed();
         }
 
-        function render() {
-            const feed = document.getElementById('boat-feed');
-            feed.innerHTML = data.length ? "" : `<div style="text-align:center; padding:50px; opacity:0.5;">Nenhuma saída cadastrada para hoje.</div>`;
+        function renderFeed() {
+            const feed = document.getElementById('main-feed');
+            feed.innerHTML = boats.length ? "" : `<div style="text-align:center; padding:60px; opacity:0.3; font-weight:700;">NENHUMA SAÍDA ENCONTRADA</div>`;
             
-            data.forEach(b => {
+            boats.forEach(b => {
                 feed.innerHTML += `
-                    <div class="boat-card" onclick="viewBoat(${b.id})">
-                        <span class="boat-badge">DISPONÍVEL</span>
+                    <div class="boat-card" onclick="openDetails(${b.id})">
                         <img src="${b.img}">
-                        <div class="boat-info-summary">
-                            <h3>${b.name}</h3>
-                            <div class="location-label"><i class="fas fa-anchor"></i> ${b.origin}</div>
-                            <div style="font-size: 0.8rem; color: #888;">Partida em: ${b.date.split('-').reverse().join('/')}</div>
-                            <button class="btn-details">Ver Informações</button>
+                        <div class="boat-card-info">
+                            <h3>${b.name.toUpperCase()}</h3>
+                            <div class="boat-card-origin"><i class="fas fa-anchor"></i> ${b.origin}</div>
+                            <div style="font-size:0.75rem; color:#888; font-weight:600;">Partida: ${b.date.split('-').reverse().join('/')} às ${b.time}h</div>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function viewBoat(id) {
-            const b = data.find(x => x.id === id);
-            document.getElementById('m-name').innerText = b.name;
-            document.getElementById('m-img').src = b.img;
-            document.getElementById('m-origin').innerText = "Origem: " + b.origin;
-            document.getElementById('m-date').innerText = b.date.split('-').reverse().join('/');
-            document.getElementById('m-time').innerText = b.time + "h";
-            document.getElementById('m-price').innerText = "R$ " + b.price;
-            document.getElementById('m-owner').innerText = b.owner;
+        function openDetails(id) {
+            const b = boats.find(x => x.id === id);
+            document.getElementById('det-name').innerText = b.name;
+            document.getElementById('det-img').src = b.img;
+            document.getElementById('det-origin').innerText = "📍 Saindo de: " + b.origin;
+            document.getElementById('det-date').innerText = b.date.split('-').reverse().join('/');
+            document.getElementById('det-time').innerText = b.time + "h";
+            document.getElementById('det-price').innerText = "R$ " + b.price;
+            document.getElementById('det-owner').innerText = b.owner;
             
-            // Link direto para WhatsApp
-            document.getElementById('btn-zap').onclick = () => {
-                window.open(`https://wa.me/55${b.phone}?text=Olá,%20vi%20o%20barco%20${b.name}%20no%20app%20Porto%20Amazonas`);
+            document.getElementById('det-zap').onclick = () => {
+                window.open(`https://wa.me/55${b.phone}?text=Olá%20${b.owner},%20tenho%20interesse%20na%20passagem%20do%20barco%20${b.name}.`);
             };
-
-            document.getElementById('modal-view').style.display = 'block';
+            
+            document.getElementById('modal-details').style.display = 'block';
         }
 
-        function closeModal() { document.getElementById('modal-view').style.display = 'none'; }
+        function closeModal() { document.getElementById('modal-details').style.display = 'none'; }
     </script>
 </body>
 </html>
