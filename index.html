@@ -3,229 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Porto Amazonas | Logística por Dias</title>
+    <title>Porto Amazonas | Logística</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1b4332; --accent: #b07d62; --river: #0077b6;
-            --bg: #f8fafc; --surface: #ffffff; --text-main: #0f172a;
-            --text-sub: #64748b; --radius-xl: 32px;
-        }
+        :root { --primary: #1b4332; --accent: #b07d62; --river: #0077b6; --bg: #f8fafc; --text-main: #0f172a; --text-sub: #64748b; }
+        * { box-sizing: border-box; transition: 0.2s; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); }
 
-        * { transition: all 0.2s ease; box-sizing: border-box; }
-        body, html { margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-main); height: 100%; }
-
-        /* --- LOGIN --- */
-        #screen-welcome {
-            height: 100vh; background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(27, 67, 50, 0.8)), 
-            url('https://images.unsplash.com/photo-1544955368-ba7779d718ca?q=80&w=1200') center/cover;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-        }
-        .login-card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(20px); padding: 40px; border-radius: var(--radius-xl); border: 1px solid rgba(255, 255, 255, 0.2); width: 90%; max-width: 380px; text-align: center; }
-        .input-premium { width: 100%; padding: 20px; border-radius: 16px; border: none; background: white; font-size: 1rem; margin-bottom: 16px; font-weight: 600; }
-        .btn-main { width: 100%; padding: 20px; border-radius: 16px; border: none; background: var(--accent); color: white; font-weight: 700; cursor: pointer; }
-
-        /* --- DASHBOARD --- */
-        #screen-main { display: none; }
-        .header-premium { background: var(--primary); padding: 40px 24px 60px; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; color: white; }
+        /* TELAS */
+        #screen-welcome, #screen-main, #screen-register { display: none; min-height: 100vh; }
         
-        .calendar-nav { display: flex; gap: 12px; overflow-x: auto; padding: 5px 24px; margin-top: -30px; scrollbar-width: none; }
+        /* LOGIN */
+        #screen-welcome { display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(15,23,42,0.9), rgba(27,67,50,0.8)), url('https://images.unsplash.com/photo-1544955368-ba7779d718ca?q=80&w=800') center/cover; }
+        .login-card { width: 90%; max-width: 350px; padding: 30px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 24px; text-align: center; border: 1px solid rgba(255,255,255,0.2); }
+
+        /* HEADER */
+        .header { background: var(--primary); padding: 30px 20px 50px; color: white; border-radius: 0 0 30px 30px; }
+        .calendar-nav { display: flex; gap: 8px; overflow-x: auto; padding: 10px 20px; margin-top: -30px; scrollbar-width: none; }
         .calendar-nav::-webkit-scrollbar { display: none; }
-        .day-card { min-width: 65px; height: 85px; background: white; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; border: 2px solid transparent; }
-        .day-card.active { border-color: var(--accent); background: var(--accent); color: white; transform: translateY(-4px); }
-        .day-card span { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; opacity: 0.7; }
+        .day-card { min-width: 100px; height: 45px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; flex-shrink: 0; color: var(--text-sub); }
+        .day-card.active { background: var(--accent); color: white; }
 
-        /* --- FEED --- */
-        .feed { padding: 30px 24px 100px; }
-        .boat-card { background: white; border-radius: 28px; overflow: hidden; margin-bottom: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .boat-img-container { width: 100%; height: 220px; }
-        .boat-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .boat-content { padding: 20px; }
-        .boat-content h3 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
-        .boat-meta { display: flex; align-items: center; gap: 10px; margin-top: 10px; color: var(--text-sub); font-size: 0.85rem; }
+        /* GRID 2 COLUNAS */
+        .feed { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 20px 15px 100px; }
+        .boat-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; display: flex; flex-direction: column; }
+        .boat-img { width: 100%; height: 120px; object-fit: cover; background: #eee; }
+        .boat-info { padding: 10px; flex-grow: 1; }
+        .boat-info b { font-size: 0.85rem; color: var(--primary); display: block; text-transform: uppercase; margin-bottom: 2px; }
+        .boat-info span { font-size: 0.75rem; color: var(--river); font-weight: 700; }
+        
+        .vote-area { display: flex; border-top: 1px solid #f1f5f9; background: #fafafa; }
+        .btn-vote { flex: 1; padding: 10px 0; border: none; background: transparent; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .btn-vote:first-child { border-right: 1px solid #f1f5f9; color: var(--primary); }
+        .btn-vote:last-child { color: #ef4444; }
 
-        /* --- FORMULÁRIO --- */
-        #screen-register { display: none; background: white; min-height: 100vh; }
-        .form-scroller { padding: 24px; }
-        .image-picker { width: 100%; height: 180px; border: 2px dashed #cbd5e1; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; background: #f1f5f9; cursor: pointer; margin-bottom: 25px; }
-        .image-picker img { width: 100%; height: 100%; object-fit: cover; display: none; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 0.75rem; font-weight: 800; color: var(--text-sub); text-transform: uppercase; margin-bottom: 8px; }
-        .input-field { width: 100%; padding: 16px; border-radius: 14px; border: 2px solid #e2e8f0; background: #f8fafc; font-size: 1rem; font-weight: 600; font-family: inherit; }
+        /* FORM */
+        .input-premium { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 10px; font-family: inherit; font-weight: 600; }
+        .btn-main { width: 100%; padding: 16px; border-radius: 12px; border: none; background: var(--accent); color: white; font-weight: 800; cursor: pointer; }
+        .fab { position: fixed; bottom: 25px; right: 20px; width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 20px; border: none; font-size: 1.5rem; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 100; }
 
-        .fab { position: fixed; bottom: 30px; right: 24px; width: 65px; height: 65px; background: var(--primary); border-radius: 22px; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: none; box-shadow: 0 10px 20px rgba(27,67,50,0.3); }
-        #modal-details { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 2000; display: none; overflow-y: auto; }
+        #modal-details { position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:2000; display:none; overflow-y:auto; }
     </style>
 </head>
 <body>
 
-    <section id="screen-welcome">
+    <section id="screen-welcome" style="display: flex;">
         <div class="login-card">
-            <h1>Porto<br><span style="color:var(--accent)">Amazonas</span></h1>
-            <p>Seja bem-vindo ao Porto.</p>
-            <input type="text" id="user-name" class="input-premium" placeholder="Seu nome">
-            <button class="btn-main" onclick="launchApp()">Ver Barcos</button>
+            <h1 style="color:white; margin:0 0 20px;">Porto<br><span style="color:var(--accent)">Amazonas</span></h1>
+            <input type="text" id="user-name" class="input-premium" placeholder="Seu Nome">
+            <input type="tel" id="user-phone" class="input-premium" placeholder="Seu WhatsApp">
+            <button class="btn-main" onclick="launchApp()">ACESSAR</button>
         </div>
     </section>
 
     <section id="screen-main">
-        <div class="header-premium">
-            <div style="font-size: 1.8rem; font-weight: 800;">Olá, <span id="display-user"></span>!<br>Para onde vamos?</div>
+        <div class="header">
+            <div style="font-weight: 800; font-size: 1.2rem;">Olá, <span id="display-user"></span>!</div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Barcos disponíveis para hoje:</div>
         </div>
-
-        <div class="calendar-nav" id="day-tabs">
-            <div class="day-card active" onclick="changePage('Seg', this)"><span>Seg</span><strong>12</strong></div>
-            <div class="day-card" onclick="changePage('Ter', this)"><span>Ter</span><strong>13</strong></div>
-            <div class="day-card" onclick="changePage('Qua', this)"><span>Qua</span><strong>14</strong></div>
-            <div class="day-card" onclick="changePage('Qui', this)"><span>Qui</span><strong>15</strong></div>
-            <div class="day-card" onclick="changePage('Sex', this)"><span>Sex</span><strong>16</strong></div>
-            <div class="day-card" onclick="changePage('Sáb', this)"><span>Sáb</span><strong>17</strong></div>
-            <div class="day-card" onclick="changePage('Dom', this)"><span>Dom</span><strong>18</strong></div>
+        <div class="calendar-nav" id="nav-days">
+            <div class="day-card active" onclick="changePage('Segunda', this)">Segunda</div>
+            <div class="day-card" onclick="changePage('Terça', this)">Terça</div>
+            <div class="day-card" onclick="changePage('Quarta', this)">Quarta</div>
+            <div class="day-card" onclick="changePage('Quinta', this)">Quinta</div>
+            <div class="day-card" onclick="changePage('Sexta', this)">Sexta</div>
+            <div class="day-card" onclick="changePage('Sábado', this)">Sábado</div>
+            <div class="day-card" onclick="changePage('Domingo', this)">Domingo</div>
         </div>
-
         <div class="feed" id="boat-feed"></div>
         <button class="fab" onclick="navigate('screen-register')"><i class="fas fa-plus"></i></button>
     </section>
 
-    <section id="screen-register">
-        <div style="padding: 24px; display: flex; align-items: center; gap: 15px;">
-            <i class="fas fa-arrow-left" onclick="navigate('screen-main')"></i>
-            <h3 style="margin:0; font-weight: 800;">Anunciar Saída</h3>
-        </div>
+    <section id="screen-register" style="padding: 20px;">
+        <div onclick="navigate('screen-main')" style="margin-bottom:20px; font-weight:800; color:var(--primary);"><i class="fas fa-arrow-left"></i> VOLTAR</div>
+        <h2>Anunciar Saída</h2>
         
-        <div class="form-scroller">
-            <div class="image-picker" onclick="document.getElementById('file-input').click()">
-                <div id="upload-placeholder"><i class="fas fa-camera fa-2x"></i></div>
-                <img id="preview-img">
-                <input type="file" id="file-input" accept="image/*" style="display:none" onchange="previewImage(this)">
-            </div>
-
-            <div class="input-group"><label>Nome do Barco</label><input type="text" id="in-name" class="input-field"></div>
-            <div class="input-group"><label>Cidade de Saída</label><input type="text" id="in-origin" class="input-field"></div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                <div class="input-group"><label>Data</label><input type="date" id="in-date" class="input-field"></div>
-                <div class="input-group"><label>Horário</label><input type="time" id="in-time" class="input-field"></div>
-            </div>
-            <div class="input-group"><label>Passagem (R$)</label><input type="number" id="in-price" class="input-field"></div>
-            <div class="input-group"><label>WhatsApp</label><input type="tel" id="in-phone" class="input-field"></div>
-            <button class="btn-main" onclick="publish()" style="background: var(--primary);">Publicar</button>
+        <div onclick="document.getElementById('file-input').click()" style="width:100%; height:150px; background:#eee; border-radius:15px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; overflow:hidden; border:2px dashed #ccc;">
+            <img id="preview-img" style="width:100%; height:100%; object-fit:cover; display:none;">
+            <span id="label-foto">Clique para enviar foto</span>
         </div>
+        <input type="file" id="file-input" accept="image/*" style="display:none" onchange="processImage(this)">
+
+        <input type="text" id="in-name" class="input-premium" placeholder="Nome do Barco">
+        <input type="text" id="in-origin" class="input-premium" placeholder="Cidade de Saída">
+        <input type="date" id="in-date" class="input-premium">
+        <input type="time" id="in-time" class="input-premium">
+        <input type="number" id="in-price" class="input-premium" placeholder="Preço R$">
+        <input type="tel" id="in-phone" class="input-premium" placeholder="WhatsApp para reserva">
+        <button class="btn-main" id="btn-publish" onclick="publish()">PUBLICAR AGORA</button>
     </section>
 
     <div id="modal-details">
-        <div style="position:relative">
-            <img id="m-img" style="width:100%; height:350px; object-fit:cover;">
-            <button onclick="closeModal()" style="position:absolute; top:20px; left:20px; border:none; background:white; width:45px; height:45px; border-radius:15px;"><i class="fas fa-chevron-left"></i></button>
-        </div>
-        <div style="padding: 30px; margin-top: -30px; background:white; border-radius: 30px 30px 0 0; position:relative;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <h2 id="m-name" style="margin:0; font-weight:800; font-size:1.8rem;"></h2>
-                <div id="m-price" style="background:var(--accent); color:white; padding:10px 15px; border-radius:12px; font-weight:800;"></div>
-            </div>
-            <p id="m-origin" style="color:var(--river); font-weight:700; margin-top:10px;"></p>
-            <div id="m-info" style="margin-top:20px; font-weight:600; color:var(--text-sub);"></div>
-            <button id="m-btn-zap" style="width:100%; padding:20px; background:#25d366; color:white; border:none; border-radius:15px; margin-top:30px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:10px;"><i class="fab fa-whatsapp"></i> RESERVAR AGORA</button>
+        <img id="m-img" style="width:100%; height:250px; object-fit:cover;">
+        <div style="padding:20px;">
+            <h2 id="m-name" style="margin:0;"></h2>
+            <p id="m-origin" style="color:var(--river); font-weight:bold;"></p>
+            <div id="m-price" style="background:#dcfce7; color:#166534; padding:8px; border-radius:8px; font-weight:bold;"></div>
+            <p id="m-info" style="margin-top:15px; color:var(--text-sub);"></p>
+            <button id="m-btn-zap" style="width:100%; padding:18px; background:#25d366; color:white; border:none; border-radius:12px; font-weight:bold; font-size:1rem;"><i class="fab fa-whatsapp"></i> CHAMAR NO WHATSAPP</button>
+            <button onclick="closeModal()" style="width:100%; margin-top:10px; padding:15px; border:none; background:#eee; border-radius:12px; font-weight:bold;">FECHAR</button>
         </div>
     </div>
 
     <script>
-        // BANCO DE DADOS POR DIA
-        let database = { "Seg": [], "Ter": [], "Qua": [], "Qui": [], "Sex": [], "Sáb": [], "Dom": [] };
-        let currentPage = "Seg";
-        let currentImg = "";
+        let db = JSON.parse(localStorage.getItem('porto_db')) || { "Segunda":[], "Terça":[], "Quarta":[], "Quinta":[], "Sexta":[], "Sábado":[], "Domingo":[] };
+        let voted = JSON.parse(localStorage.getItem('porto_voted')) || [];
+        let curDay = "Segunda";
+        let curImg = "";
+
+        function navigate(id) {
+            document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = id === 'screen-main' ? 'block' : (id === 'screen-welcome' ? 'flex' : 'block');
+        }
 
         function launchApp() {
-            let name = document.getElementById('user-name').value;
-            if(!name) return alert("Diga-nos seu nome!");
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
+            if(!name || !phone) return alert("Preencha seus dados!");
+            
+            let users = JSON.parse(localStorage.getItem('porto_users')) || [];
+            if(!users.find(u => u.phone === phone)) users.push({name, phone});
+            
+            localStorage.setItem('porto_users', JSON.stringify(users));
+            localStorage.setItem('cur_user', JSON.stringify({name, phone}));
             document.getElementById('display-user').innerText = name.split(' ')[0];
             navigate('screen-main');
             updateFeed();
         }
 
-        function navigate(id) {
-            document.querySelectorAll('section').forEach(s => s.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-        }
-
-        function changePage(day, el) {
-            currentPage = day;
-            document.querySelectorAll('.day-card').forEach(d => d.classList.remove('active'));
-            el.classList.add('active');
-            updateFeed();
-        }
-
-        function previewImage(input) {
+        function processImage(input) {
             if (input.files && input.files[0]) {
                 let reader = new FileReader();
-                reader.onload = e => {
-                    document.getElementById('upload-placeholder').style.display = 'none';
-                    let img = document.getElementById('preview-img');
+                reader.onload = function(e) {
+                    let img = new Image();
                     img.src = e.target.result;
-                    img.style.display = 'block';
-                    currentImg = e.target.result;
+                    img.onload = function() {
+                        // Reduzir imagem para não travar o banco
+                        let canvas = document.createElement('canvas');
+                        let max = 600;
+                        let w = img.width, h = img.height;
+                        if (w > h) { if(w > max){ h *= max/w; w = max; } }
+                        else { if(h > max){ w *= max/h; h = max; } }
+                        canvas.width = w; canvas.height = h;
+                        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                        curImg = canvas.toDataURL('image/jpeg', 0.7);
+                        document.getElementById('preview-img').src = curImg;
+                        document.getElementById('preview-img').style.display = 'block';
+                        document.getElementById('label-foto').style.display = 'none';
+                    }
                 }
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function publish() {
+            const name = document.getElementById('in-name').value;
+            const origin = document.getElementById('in-origin').value;
             const dateVal = document.getElementById('in-date').value;
-            if(!dateVal) return alert("Escolha uma data!");
+            const user = JSON.parse(localStorage.getItem('cur_user'));
 
-            // Lógica para detectar o dia da semana da data escolhida
-            const daysMap = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-            const dt = new Date(dateVal + 'T00:00:00');
-            const dayName = daysMap[dt.getDay()];
+            if(!name || !origin || !dateVal) return alert("Preencha os campos obrigatórios!");
+
+            // Descobrir o dia da semana
+            const days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+            const dParts = dateVal.split('-');
+            const dObj = new Date(dParts[0], dParts[1]-1, dParts[2]);
+            const dayName = days[dObj.getDay()];
 
             const boat = {
                 id: Date.now(),
-                name: document.getElementById('in-name').value,
-                origin: document.getElementById('in-origin').value,
-                date: dateVal,
-                time: document.getElementById('in-time').value,
-                price: document.getElementById('in-price').value,
-                phone: document.getElementById('in-phone').value,
-                img: currentImg || 'https://images.unsplash.com/photo-1590604518089-28c467ed828d?q=80&w=800'
+                uPhone: user.phone,
+                uName: user.name,
+                name: name,
+                origin: origin,
+                date: dParts.reverse().join('/'),
+                time: document.getElementById('in-time').value || "--:--",
+                price: document.getElementById('in-price').value || "A combinar",
+                phone: document.getElementById('in-phone').value || user.phone,
+                img: curImg || 'https://images.unsplash.com/photo-1590604518089-28c467ed828d?q=80&w=400',
+                likes: 0, dislikes: 0
             };
 
-            // Salva na "página" correta
-            database[dayName].unshift(boat);
+            db[dayName].unshift(boat);
+            localStorage.setItem('porto_db', JSON.stringify(db));
             
-            // Limpa form
-            document.getElementById('upload-placeholder').style.display = 'block';
+            // Limpar
+            curImg = "";
+            document.getElementById('in-name').value = "";
             document.getElementById('preview-img').style.display = 'none';
-            currentImg = "";
+            document.getElementById('label-foto').style.display = 'block';
             
-            // Vai para o dia que o usuário acabou de cadastrar
-            currentPage = dayName;
-            syncCalendarUI(dayName);
+            curDay = dayName;
+            document.querySelectorAll('.day-card').forEach(d => {
+                d.classList.toggle('active', d.innerText === curDay);
+            });
+
             updateFeed();
             navigate('screen-main');
+            alert("Publicado com sucesso!");
         }
 
-        function syncCalendarUI(day) {
-            const cards = document.querySelectorAll('.day-card');
-            cards.forEach(card => {
-                card.classList.remove('active');
-                if(card.querySelector('span').innerText === day) card.classList.add('active');
-            });
+        function vote(id, type) {
+            if(voted.includes(id)) return alert("Você já votou!");
+            for(let d in db) {
+                let b = db[d].find(x => x.id === id);
+                if(b) {
+                    type === 'like' ? b.likes++ : b.dislikes++;
+                    voted.push(id);
+                    localStorage.setItem('porto_voted', JSON.stringify(voted));
+                    localStorage.setItem('porto_db', JSON.stringify(db));
+                    updateFeed();
+                    return;
+                }
+            }
         }
 
         function updateFeed() {
             const feed = document.getElementById('boat-feed');
-            const list = database[currentPage];
-            
-            feed.innerHTML = list.length ? "" : `<div style="text-align:center; padding:50px; opacity:0.5;">Nenhum barco para ${currentPage}-feira.</div>`;
+            const list = db[curDay] || [];
+            feed.innerHTML = list.length ? "" : `<div style="grid-column: span 2; text-align:center; padding:40px; opacity:0.3;">Nenhuma saída.</div>`;
             
             list.forEach(b => {
+                const isVoted = voted.includes(b.id);
                 feed.innerHTML += `
-                    <div class="boat-card" onclick="showBoat(${b.id})">
-                        <div class="boat-img-container"><img src="${b.img}"></div>
-                        <div class="boat-content">
-                            <h3>${b.name}</h3>
-                            <div class="boat-meta"><i class="fas fa-anchor"></i> ${b.origin}</div>
-                            <div class="boat-meta"><i class="fas fa-clock"></i> Saída às ${b.time}h</div>
+                    <div class="boat-card">
+                        <img src="${b.img}" class="boat-img" onclick="showBoat(${b.id})">
+                        <div class="boat-info" onclick="showBoat(${b.id})">
+                            <b>${b.name}</b>
+                            <span>📍 ${b.origin}</span>
+                        </div>
+                        <div class="vote-area">
+                            <button class="btn-vote" onclick="vote(${b.id}, 'like')" ${isVoted ? 'disabled' : ''}>
+                                <i class="fas fa-thumbs-up"></i> ${b.likes}
+                            </button>
+                            <button class="btn-vote" onclick="vote(${b.id}, 'dislike')" ${isVoted ? 'disabled' : ''}>
+                                <i class="fas fa-thumbs-down"></i> ${b.dislikes}
+                            </button>
                         </div>
                     </div>
                 `;
@@ -233,17 +247,34 @@
         }
 
         function showBoat(id) {
-            const b = database[currentPage].find(x => x.id === id);
+            let b;
+            for(let d in db) { b = db[d].find(x => x.id === id); if(b) break; }
+            if(!b) return;
             document.getElementById('m-name').innerText = b.name;
             document.getElementById('m-img').src = b.img;
-            document.getElementById('m-origin').innerText = "⚓ Porto: " + b.origin;
-            document.getElementById('m-price').innerText = "R$ " + b.price;
-            document.getElementById('m-info').innerText = `Saída confirmada para ${b.date.split('-').reverse().join('/')} às ${b.time}h`;
+            document.getElementById('m-origin').innerText = "📍 Saindo de: " + b.origin;
+            document.getElementById('m-price').innerText = "Passagem: " + (isNaN(b.price) ? b.price : "R$ "+b.price);
+            document.getElementById('m-info').innerText = `Data: ${b.date} às ${b.time}h. Publicado por: ${b.uName}`;
             document.getElementById('m-btn-zap').onclick = () => window.open(`https://wa.me/55${b.phone}`);
             document.getElementById('modal-details').style.display = 'block';
         }
 
+        function changePage(day, el) {
+            curDay = day;
+            document.querySelectorAll('.day-card').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+            updateFeed();
+        }
+
         function closeModal() { document.getElementById('modal-details').style.display = 'none'; }
+        
+        // Iniciar
+        if(localStorage.getItem('cur_user')) {
+            const user = JSON.parse(localStorage.getItem('cur_user'));
+            document.getElementById('display-user').innerText = user.name.split(' ')[0];
+            navigate('screen-main');
+            updateFeed();
+        }
     </script>
 </body>
 </html>
